@@ -16,7 +16,11 @@
 #define TIMEBETWEENSTATIONS 1
 
 using std::string;
+using std::cout;
+using std::endl;
+using std::flush;
 
+typedef std::map<string, Passenger*>::iterator passenger_iterator;
 std::map<std::string, Passenger*> onTheBus;
 
 void init();
@@ -72,17 +76,34 @@ void init(){
 }
 
 void wait(int seconds){
-
+//sleep(seconds);
 }
 
-void letPassengersOut(){
-    /*TODO 3)
-     *
-     * write a function so bus stops an delete the passengers in the map, which want to leave the bus at the current station
-     *
-     * write your implementation here
-     */
+void letPassengersOut() {
+	/*TODO 3)
+	 *
+	 * write a function so bus stops an delete the passengers in the map, which want to leave the bus at the current station
+	 *
+	 * write your implementation here
+	 */
+	int counter = 0;
+
+	passenger_iterator it = onTheBus.begin();
+	it = onTheBus.begin();
+	while (it != onTheBus.end()) {
+		Passenger* p = it->second;
+		if ((p != NULL) && (p->getLeaveStation() == currentStation)) {
+			it++;
+			onTheBus.erase(it);
+			counter++;
+			delete p;
+		} else {
+			it++;
+		}
+	}
+	std::cout << counter <<" passengers have left the bus" << std::endl;
 }
+
 
 void print(){
     /*TODO 4)
@@ -91,6 +112,17 @@ void print(){
      *
      * write your implementation here
      */
+	cout << getNumberOfPassengers() << " persons are still on the bus." << flush;
+		if (getNumberOfPassengers() > 0) {
+			cout << " Current taken seats are:" << endl;
+			for (passenger_iterator it = onTheBus.begin(); it != onTheBus.end(); it++) {
+				if (it != onTheBus.begin()) {
+					cout << "; " << flush;
+				}
+				cout << it->first << flush;
+			}
+		}
+		cout << endl;
 }
 
 int getNumberOfPassengers(){
@@ -100,5 +132,6 @@ int getNumberOfPassengers(){
      *
      * write your implementation here
      */
+	return onTheBus.size();
 }
 
