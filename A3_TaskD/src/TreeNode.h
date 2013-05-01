@@ -50,5 +50,7 @@ public:
     
     void printInOrder();
     
+    void printElement();
+
     
 };

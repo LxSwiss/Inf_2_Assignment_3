@@ -47,8 +47,7 @@ void TreeNode::setRightChild(TreeNode* node_pointer_){
 
 
 void TreeNode::printPreOrder() {
-	if (element != NULL)
-		std::cout << element->getValue() << std::endl;
+		printElement();
 	if (left_child != NULL)
 		left_child->printPreOrder();
 	if (right_child != NULL)
@@ -60,8 +59,7 @@ void TreeNode::printPreOrder() {
 void TreeNode::printInOrder() {
 	if (left_child != NULL)
 		left_child->printInOrder();
-	if (element != NULL)
-		std::cout << element->getValue() << std::endl;
+	printElement();
 	if (right_child != NULL)
 		right_child->printInOrder();
 
@@ -72,21 +70,24 @@ void TreeNode::printPostOrder() {
 			left_child->printPostOrder();
 		if (right_child != NULL)
 			right_child->printPostOrder();
-		if (element != NULL)
-		std::cout << element->getValue() << std::endl;
+		printElement();
+}
+
+void TreeNode::printElement(){
+	std::cout << "(" << element->getKey() << ": " << element->getValue() << ")"<<std::endl;
 }
 
 
-
 TreeNode* TreeNode::searchKey(int key_) {
-	if (key_ == element->getKey()) {
+	int node = element->getKey();
+	if (key_ == node) {
 		return this;
 	}
-	if (key_ > element->getKey()) {
+	if (key_ > node) {
 		if (right_child != NULL)
 			return right_child->searchKey(key_);
 	}
-	if (key_ < element->getKey()) {
+	if (key_ < node) {
 		if (left_child != NULL)
 			return left_child->searchKey(key_);
 	}
@@ -109,6 +110,7 @@ void TreeNode::add(KeyValuePair* element_){
 		branch->right_child = newNode;
 	}else{
 		std::cout<< "Same Key!"<<std::endl;
+		delete newNode;
 	}
 
 }

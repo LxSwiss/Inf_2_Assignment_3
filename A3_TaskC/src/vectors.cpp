@@ -6,6 +6,7 @@ ArrayVector<Object>::ArrayVector(int initCap)
 			: capacity(initCap) , numberOfElements(0){
 	array = new Object[capacity];
 }
+
 template<typename Object>
 ArrayVector<Object>::~ArrayVector(){
 }
